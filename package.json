@@ -1,0 +1,21 @@
+{
+  "name": "geospatial-messaging-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "demo": "node src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@turf/turf": "^6.5.0",
+    "nanoid": "^5.0.1",
+    "ngeohash": "^0.6.3",
+    "redis": "^4.6.10",
+    "rxjs": "^7.8.1",
+    "set-operations": "^2.0.2",
+    "wkx": "^0.5.0"
+  }
+}
