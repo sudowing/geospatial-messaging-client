@@ -4,7 +4,7 @@
 
 ## Basic Usage
 ```js
-import GeoSpatialClient from './client.js';
+import GeoSpatialClient from '@sudowing/geospatial-messaging-client';
 
 const eventHandler = event => console.log(`${JSON.stringify(event)}`);
 
@@ -96,3 +96,20 @@ docker run -d \
 # Future Features
 - mcache handling (short TTLs)
 
+# Private Package Management
+
+## package publishing
+
+```sh
+npm login --scope=@sudowing --auth-type=legacy --registry=https://npm.pkg.github.com
+
+# enter username & token
+npm run release
+```
+
+## package publishing
+
+```sh
+npm login --scope=@sudowing --registry=https://npm.pkg.github.com
+npm install @sudowing/geospatial-messaging-client
+```
