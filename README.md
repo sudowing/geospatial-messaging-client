@@ -1,6 +1,6 @@
 ### Geospatial Messaging Client
 
-![geospatial-messaging-client promo-art](assets/geohash-layers.png "Geospatial Messaging Client | Promo Poster (Geohash Scales and Custom Polygons)")
+![geospatial-messaging-client promo-art](https://raw.githubusercontent.com/sudowing/geospatial-messaging-client/develop/assets/geohash-layers.png "Geospatial Messaging Client | Promo Poster (Geohash Scales and Custom Polygons)")
 
 The purpose of this client is to facilitate communication via geospatial area -- meaning the client will have the ability to define custom polygons for broadcasting via Pub/Sub.
 
