@@ -1,16 +1,25 @@
-### geospatial-messaging-client
+### Geospatial Messaging Client
 
-# Client Overview
+![geospatial-messaging-client promo-art](assets/geohash-layers.png "Geospatial Messaging Client | Promo Poster (Geohash Scales and Custom Polygons)")
 
-## Basic Usage
+The purpose of this client is to facilitate communication via geospatial area -- meaning the client will have the ability to define custom polygons for broadcasting via Pub/Sub.
+
+The core mechanism enabling this solution involves normalizing all custom polygons to a base grid -- made up of geohashes. Each geohash maps to a redis channel, where messages get published, enabling other clients to subscribe via `redis.psubscribe`.
+
+A client subscribes to all tiles/channels that intersect with the defined custom polygon -- and publishes any message to this same set of tiles/channels.
+
+As currently implemented, a client can subscribe to geohash tiles at/beneath them, while publishing at/above them.
+
+# Client Overview: Basic Usage
 ```js
-import GeoSpatialClient from '@sudowing/geospatial-messaging-client';
+import GeoSpatialClient from 'geospatial-messaging-client';
+import * as samples from './data_samples.js';
 
-const eventHandler = event => console.log(`${JSON.stringify(event)}`);
+const eventHandler = ({eventType, ...event}) => console.log(eventType || 'default', `${JSON.stringify(event)}`);
 
 const client = new GeoSpatialClient({polygon_coordinates: samples.coords_002, geohash_length: 5});
 
-// subscribe to the event stream
+// subscribe to the event stream (RxJS)
 client.observable.subscribe(eventHandler);
 
 await client.connect({});
@@ -19,7 +28,7 @@ await client.send({hello: 'world'});
 await client.send({goodbye: 'night'});
 
 const film = {
-    name: 'harry potter'
+   name: 'harry potter'
   ,year: 2001
   ,run_time: '152 minutes'
   ,bidget: '$125M'
@@ -40,7 +49,7 @@ const bar = {
     venue: 'The Bull and Finch Pub'
    ,date: '2024-01-04'
    ,address: {
-     street: '84 Beacon St'
+      street: '84 Beacon St'
      ,city: 'Boston'
      ,state: 'MA'
      ,zipcode: '02108'
@@ -79,8 +88,9 @@ await client.disconnect();
 ```
 
 
+# Development Notes
 
-# run redis locally
+## run redis locally
 ```sh
 
 # create docker network (if db on docker network)
@@ -93,23 +103,15 @@ docker run -d \
 	redis
 ```
 
-# Future Features
-- mcache handling (short TTLs)
-
-# Private Package Management
-
 ## package publishing
 
 ```sh
-npm login --scope=@sudowing --auth-type=legacy --registry=https://npm.pkg.github.com
+npm login
 
-# enter username & token
 npm run release
 ```
 
-## package publishing
-
-```sh
-npm login --scope=@sudowing --registry=https://npm.pkg.github.com
-npm install @sudowing/geospatial-messaging-client
-```
+## Future Features
+- mcache handling (short TTLs)
+- direct messaging (client_id <-> client_id)
+- party messaging
